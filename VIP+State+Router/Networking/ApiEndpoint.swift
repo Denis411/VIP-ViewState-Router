@@ -43,8 +43,6 @@ enum ApiEndpoint {
             let widthQI = URLQueryItem(name: "width", value: String(width))
             let heightQI = URLQueryItem(name: "height", value: String(height))
             return [categoryQI, widthQI, heightQI]
-        default:
-            return nil
         }
     }
     
@@ -59,13 +57,3 @@ enum ApiEndpoint {
         }
     }
 }
-
-extension ApiEndpoint {
-    enum Method: String {
-         case GET
-         case POST
-         case PUT
-         case DELETE
-      }
-}
-
