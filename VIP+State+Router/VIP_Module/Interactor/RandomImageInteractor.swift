@@ -13,11 +13,11 @@ protocol RandomImageProtocol {
 
 final class RandomImageInteractor: RandomImageProtocol {
     private let apiManager: ApiManagerProtocol
-    private let presenter: PresenterProtocol
+    private let presenter: MainScreenPresenterProtocol
     private var isLoadingInProgress = false
     
     init(
-        presenter: PresenterProtocol,
+        presenter: MainScreenPresenterProtocol,
         apiManager: ApiManagerProtocol
     ) {
         self.presenter = presenter

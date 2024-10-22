@@ -19,7 +19,7 @@ final class ScreenFactory {
     
     func mainScreen() -> UIViewController {
         let viewState = ViewState()
-        let presenter = Presenter(viewState: viewState)
+        let presenter = MainScreenPresenter(viewState: viewState)
         let apiManager = di.getApiService()
         let interactor = RandomImageInteractor(presenter: presenter, apiManager: apiManager)
         let screen = MainScreen(interactor: interactor, viewState: viewState)
