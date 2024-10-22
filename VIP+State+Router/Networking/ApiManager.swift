@@ -7,21 +7,32 @@
 
 import Foundation
 
+typealias NetworkResponse = (data: Data, response: URLResponse)
+
 protocol ApiManagerProtocol {
-    func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D
+    func get<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D
+    func getResponse(from endpoint: ApiEndpoint) async throws -> NetworkResponse
 }
 
 final class ApiManager {
-    private typealias NetworkResponse = (data: Data, response: URLResponse)
     private let session = URLSession.shared
     private let decoder = JSONDecoder()
 }
 
 extension ApiManager: ApiManagerProtocol {
-    func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
-        let request = try createRequest(from: endpoint)
-        let response: NetworkResponse = try await session.data(for: request)
+    func get<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
+        let response = try await getResponse(from: endpoint)
         return try decoder.decode(D.self, from: response.data)
+    }
+    
+    func getResponse(from endpoint: ApiEndpoint) async throws -> NetworkResponse {
+        let request = try createRequest(from: endpoint)
+        do {
+            let response: NetworkResponse = try await session.data(for: request)
+            return response
+        } catch {
+            throw error
+        }
     }
 }
 

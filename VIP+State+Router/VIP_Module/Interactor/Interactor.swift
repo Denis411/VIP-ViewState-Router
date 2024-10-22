@@ -12,13 +12,23 @@ protocol InteractorProtocol {
 }
 
 final class Interactor: InteractorProtocol {
-    private let presenter: PresenterProtcol
+    private let apiManager: ApiManagerProtocol
+    private let presenter: PresenterProtocol
     
-    init(presenter: PresenterProtcol) {
+    init(
+        presenter: PresenterProtocol,
+        apiManager: ApiManagerProtocol
+    ) {
         self.presenter = presenter
+        self.apiManager = apiManager
     }
     
     func loadRandomImage(category: ImageCategory) {
-        
+        Task(priority: .high) {
+            let endPoint = ApiEndpoint.randomImage(category: category, width: 200, height: 200)
+            let response: NetworkResponse? = try? await apiManager.getResponse(from: endPoint)
+            let imageData = response?.data
+            await presenter.updateImage(imageData: imageData)
+        }
     }
 }

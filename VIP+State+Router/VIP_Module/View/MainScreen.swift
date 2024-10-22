@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class MainScreen: UIViewController {
-    private let interactor: InteractorProtocol
-    private let viewState: ViewState
+    /*private*/ let interactor: InteractorProtocol
+    @ObservedObject private var viewState: ViewState
     
-    let button = UIButton()
-    let imageView = UIImageView()
+    private var disposedBag = Set<AnyCancellable>()
+    
+    /*private*/ let button = UIButton()
+    /*private*/ let imageView = UIImageView()
     
     init(
         interactor: InteractorProtocol,
@@ -21,6 +24,7 @@ final class MainScreen: UIViewController {
         self.interactor = interactor
         self.viewState = viewState
         super.init(nibName: nil, bundle: nil)
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -32,5 +36,24 @@ final class MainScreen: UIViewController {
         view.backgroundColor = .green
         setImageView()
         setUIButton()
+    }
+}
+
+import Combine
+
+private extension MainScreen {
+    private func bind() {
+        viewState
+            .$imageData
+            .removeDuplicates()
+            .sink { [weak imageView] imageData in
+                guard let imageData = imageData,
+                      let updatedImage = UIImage(data: imageData) else {
+                    return
+                }
+                
+                imageView?.image = updatedImage
+        }
+            .store(in: &disposedBag)
     }
 }

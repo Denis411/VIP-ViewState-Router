@@ -7,18 +7,18 @@
 
 import Foundation
 
-protocol PresenterProtcol {
-    func updateImage(imageData: Data)
+protocol PresenterProtocol {
+    @MainActor func updateImage(imageData: Data?)
 }
 
-final class Presenter: PresenterProtcol {
+final class Presenter: PresenterProtocol {
     private let viewState: ViewState
     
     init(viewState: ViewState) {
         self.viewState = viewState
     }
     
-    func updateImage(imageData: Data) {
+    @MainActor func updateImage(imageData: Data?) {
         viewState.imageData = imageData
     }
 }

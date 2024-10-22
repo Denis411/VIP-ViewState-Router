@@ -19,7 +19,7 @@ enum ApiEndpoint {
     var baseURL: String {
         switch self {
         case .randomImage:
-            return "https://api.api-ninjas.com"
+            return "https://api.api-ninjas.com/"
         }
     }
     
