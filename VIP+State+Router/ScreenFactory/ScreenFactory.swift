@@ -21,7 +21,7 @@ final class ScreenFactory {
         let viewState = ViewState()
         let presenter = Presenter(viewState: viewState)
         let apiManager = di.getApiService()
-        let interactor = Interactor(presenter: presenter, apiManager: apiManager)
+        let interactor = RandomImageInteractor(presenter: presenter, apiManager: apiManager)
         let screen = MainScreen(interactor: interactor, viewState: viewState)
         return screen
     }

@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 final class MainScreen: UIViewController {
-    /*private*/ let interactor: InteractorProtocol
+    /*private*/ let interactor: RandomImageInteractorProtocol
     @ObservedObject private(set) var viewState: ViewState
     
     private var disposedBag = Set<AnyCancellable>()
@@ -19,7 +19,7 @@ final class MainScreen: UIViewController {
     /*private*/ let activityIndicator = UIActivityIndicatorView()
     
     init(
-        interactor: InteractorProtocol,
+        interactor: RandomImageInteractorProtocol,
         viewState: ViewState
     ) {
         self.interactor = interactor
