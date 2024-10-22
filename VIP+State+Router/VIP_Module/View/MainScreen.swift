@@ -10,7 +10,7 @@ import SwiftUI
 
 final class MainScreen: UIViewController {
     /*private*/ let interactor: InteractorProtocol
-    @ObservedObject private var viewState: ViewState
+    @ObservedObject private(set) var viewState: ViewState
     
     private var disposedBag = Set<AnyCancellable>()
     

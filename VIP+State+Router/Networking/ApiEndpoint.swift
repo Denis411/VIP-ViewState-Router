@@ -53,7 +53,7 @@ enum ApiEndpoint {
     var headerFields: [String: String]? {
         switch self {
         case .randomImage:
-            return ["X-Api-Key": APINinjasKey, "Content-Type": "image/jpg"]
+            return ["X-Api-Key": APINinjasKey, "Accept": "image/jpg"]
         }
     }
 }
