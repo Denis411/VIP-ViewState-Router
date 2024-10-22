@@ -7,20 +7,60 @@
 
 import UIKit
 
-final class Interactor {
+final class ViewState: ObservableObject {
+    @Published var imageData: Data?
+}
+
+protocol PresenterProtcol {
+    func updateImage(imageData: Data)
+}
+
+final class Presenter: PresenterProtcol {
+    private let viewState: ViewState
+    
+    init(viewState: ViewState) {
+        self.viewState = viewState
+    }
+    
+    func updateImage(imageData: Data) {
+        viewState.imageData = imageData
+    }
+}
+
+protocol InteractorProtocol {
+    func loadRandomImage(category: ImageCategory)
+}
+
+final class Interactor: InteractorProtocol {
     func loadRandomImage(category: ImageCategory) {
         
     }
 }
 
-class MainScreen: UIViewController {
-    private let interactor = Interactor()
-    private let button: UIButton = UIButton()
+final class MainScreen: UIViewController {
+    private let interactor: InteractorProtocol = Interactor()
+    private let button = UIButton()
+    private let imageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+        setImageView()
         setUIButton()
+    }
+}
+
+
+// MARK: - UIElements
+extension MainScreen {
+    private func setImageView() {
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageView.image = UIImage(systemName: "plus.circle")
     }
 
     private func setUIButton() {
@@ -41,6 +81,4 @@ class MainScreen: UIViewController {
     @objc private func loadImage() {
         interactor.loadRandomImage(category: .city)
     }
-
 }
-
