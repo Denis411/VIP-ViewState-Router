@@ -9,16 +9,13 @@ import UIKit
 import SwiftUI
 
 final class MainScreen: UIViewController {
-    /*private*/ let randomImageInteractor: RandomImageProtocol
-    /*private*/ let imagePreservationInteractor: ImagePreservationProtocol
-    @ObservedObject private(set) var viewState: ViewState
+    private let randomImageInteractor: RandomImageProtocol
+    private let imagePreservationInteractor: ImagePreservationProtocol
     
+    @ObservedObject private(set) var viewState: ViewState
     private var disposedBag = Set<AnyCancellable>()
     
-    /*private*/ let loadImageButton = UIButton()
-    /*private*/ let saveImageButton = UIButton()
-    /*private*/ let imageView = UIImageView()
-    /*private*/ let activityIndicator = UIActivityIndicatorView()
+    private var internalView: MainScreenView { view as! MainScreenView }
     
     init(
         randomImageInteractor: RandomImageProtocol,
@@ -32,6 +29,13 @@ final class MainScreen: UIViewController {
         bind()
     }
     
+    override func loadView() {
+        view = MainScreenView(
+            loadRandomImageAction: randomImageInteractor.loadRandomImage,
+            saveImageAction: imagePreservationInteractor.persist
+        )
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,10 +43,7 @@ final class MainScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
-        setActivityIndicator()
-        setImageView()
-        setLoadImageButton()
-        setSaveButton()
+
         imagePreservationInteractor.loadImage()
     }
 }
@@ -54,20 +55,20 @@ private extension MainScreen {
         viewState
             .$imageData
             .removeDuplicates()
-            .sink { [weak self] imageData in
+            .sink { [weak internalView] imageData in
                 guard Thread.isMainThread else {
                     fatalError()
                 }
                 
                 defer {
-                    self?.setLoadingState(isBeingLoaded: false)
+                    internalView?.setLoadingState(isBeingLoaded: false)
                 }
                 guard let imageData = imageData,
                       let updatedImage = UIImage(data: imageData) else {
                     return
                 }
                 
-                self?.imageView.image = updatedImage
+                internalView?.setImage(updatedImage)
         }
             .store(in: &disposedBag)
     }
