@@ -7,6 +7,8 @@
 
 import Foundation
 
+// I user https://api-ninjas.com/profile
+
 fileprivate let APINinjasKey = "+mbt+/rt0Wi5pKfaTmBTFQ==ahQ0PZHrB3NLix8G"
 
 enum ImageCategory: String {
