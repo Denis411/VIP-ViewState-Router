@@ -15,7 +15,8 @@ final class MainScreen: UIViewController {
     
     private var disposedBag = Set<AnyCancellable>()
     
-    /*private*/ let button = UIButton()
+    /*private*/ let loadImageButton = UIButton()
+    /*private*/ let saveImageButton = UIButton()
     /*private*/ let imageView = UIImageView()
     /*private*/ let activityIndicator = UIActivityIndicatorView()
     
@@ -41,6 +42,7 @@ final class MainScreen: UIViewController {
         setActivityIndicator()
         setImageView()
         setLoadImageButton()
+        setSaveButton()
     }
 }
 

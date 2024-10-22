@@ -38,22 +38,41 @@ extension MainScreen {
     }
 
     func setLoadImageButton() {
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
-        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        button.layer.backgroundColor = UIColor.blue.cgColor
-        button.layer.cornerRadius = 10.0
-        button.setTitle("Random Image", for: .normal)
-        button.setTitle("", for: .highlighted)
-        button.addTarget(nil, action: #selector(loadImage), for: .touchUpInside)
+        view.addSubview(loadImageButton)
+        loadImageButton.translatesAutoresizingMaskIntoConstraints = false
+        loadImageButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loadImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadImageButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        loadImageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        loadImageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        loadImageButton.layer.backgroundColor = UIColor.blue.cgColor
+        loadImageButton.layer.cornerRadius = 10.0
+        loadImageButton.setTitle("Random Image", for: .normal)
+        loadImageButton.setTitle("", for: .highlighted)
+        loadImageButton.addTarget(nil, action: #selector(loadImage), for: .touchUpInside)
+    }
+    
+    func setSaveButton() {
+        view.addSubview(saveImageButton)
+        saveImageButton.translatesAutoresizingMaskIntoConstraints = false
+        saveImageButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        saveImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        saveImageButton.bottomAnchor.constraint(equalTo: loadImageButton.topAnchor, constant: -10).isActive = true
+        saveImageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        saveImageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        saveImageButton.layer.backgroundColor = UIColor.blue.cgColor
+        saveImageButton.layer.cornerRadius = 10.0
+        saveImageButton.setTitle("Save image", for: .normal)
+        saveImageButton.setTitle("", for: .highlighted)
+        saveImageButton.addTarget(nil, action: #selector(saveImage), for: .touchUpInside)
     }
     
     @objc func loadImage() {
         setLoadingState(isBeingLoaded: true)
         randomImageInteractor.loadRandomImage(category: .city)
+    }
+    
+    @objc func saveImage() {
+        imagePreservationInteractor.persist(imageData: viewState.imageData)
     }
 }
