@@ -43,6 +43,7 @@ final class MainScreen: UIViewController {
         setImageView()
         setLoadImageButton()
         setSaveButton()
+        imagePreservationInteractor.loadImage()
     }
 }
 
@@ -52,7 +53,6 @@ private extension MainScreen {
     private func bind() {
         viewState
             .$imageData
-            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] imageData in
                 guard Thread.isMainThread else {
