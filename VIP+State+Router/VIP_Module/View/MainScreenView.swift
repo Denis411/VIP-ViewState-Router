@@ -46,6 +46,14 @@ final class MainScreenView: UIView {
     func setLoadingState(isBeingLoaded: Bool) {
         setLoadingStateInternally(isBeingLoaded: isBeingLoaded)
     }
+    
+    func setImageSavingStatus(isBeingLoaded: Bool) {
+        if isBeingLoaded {
+            saveImageButton.setTitle("...", for: .normal)
+        } else {
+            saveImageButton.setTitle("Save image", for: .normal)
+        }
+    }
 }
 
 // MARK: - UIElements

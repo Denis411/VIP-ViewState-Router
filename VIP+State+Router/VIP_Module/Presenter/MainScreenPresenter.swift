@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainScreenPresenterProtocol {
     @MainActor func updateImage(imageData: Data?)
+    @MainActor func setImageSavingStatus(isBeingLoaded: Bool)
 }
 
 final class MainScreenPresenter: MainScreenPresenterProtocol {
@@ -20,5 +21,9 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
     
     @MainActor func updateImage(imageData: Data?) {
         viewState.imageData = imageData
+    }
+    
+    @MainActor func setImageSavingStatus(isBeingLoaded: Bool) {
+        viewState.isImageBeingSaved = isBeingLoaded
     }
 }

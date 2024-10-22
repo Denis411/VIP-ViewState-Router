@@ -52,6 +52,7 @@ import Combine
 
 private extension MainScreen {
     private func bind() {
+        // image data
         viewState
             .$imageData
             .removeDuplicates()
@@ -70,6 +71,15 @@ private extension MainScreen {
                 
                 internalView?.setImage(updatedImage)
         }
+            .store(in: &disposedBag)
+        
+        // saving status
+        viewState
+            .$isImageBeingSaved
+            .dropFirst()
+            .sink { [weak internalView] isBeingLoaded in
+                internalView?.setImageSavingStatus(isBeingLoaded: isBeingLoaded)
+            }
             .store(in: &disposedBag)
     }
 }

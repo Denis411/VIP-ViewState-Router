@@ -10,4 +10,5 @@ import Foundation
 
 final class ViewState: ObservableObject {
     @Published var imageData: Data?
+    @Published var isImageBeingSaved: Bool = false
 }
