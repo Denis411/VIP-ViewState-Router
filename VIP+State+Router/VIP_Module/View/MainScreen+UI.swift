@@ -37,7 +37,7 @@ extension MainScreen {
         imageView.image = UIImage(systemName: "plus.circle")
     }
 
-    func setUIButton() {
+    func setLoadImageButton() {
         view.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -54,6 +54,6 @@ extension MainScreen {
     
     @objc func loadImage() {
         setLoadingState(isBeingLoaded: true)
-        interactor.loadRandomImage(category: .city)
+        randomImageInteractor.loadRandomImage(category: .city)
     }
 }

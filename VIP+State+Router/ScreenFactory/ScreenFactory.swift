@@ -27,10 +27,10 @@ final class ScreenFactory {
         
         let viewState = ViewState()
         let presenter = MainScreenPresenter(viewState: viewState)
-        let interactor = RandomImageInteractor(presenter: presenter, apiManager: apiManager)
+        let randomImageInteractor = RandomImageInteractor(presenter: presenter, apiManager: apiManager)
         let imagePresenrvationInteractor = ImagePreservationInteractor(repository: internalRepository)
         let screen = MainScreen(
-            interactor: interactor,
+            randomImageInteractor: randomImageInteractor,
             imagePreservationInteractor: imagePresenrvationInteractor,
             viewState: viewState
         )

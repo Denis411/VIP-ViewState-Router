@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 final class MainScreen: UIViewController {
-    /*private*/ let interactor: RandomImageProtocol
+    /*private*/ let randomImageInteractor: RandomImageProtocol
     /*private*/ let imagePreservationInteractor: ImagePreservationProtocol
     @ObservedObject private(set) var viewState: ViewState
     
@@ -20,11 +20,11 @@ final class MainScreen: UIViewController {
     /*private*/ let activityIndicator = UIActivityIndicatorView()
     
     init(
-        interactor: RandomImageProtocol,
+        randomImageInteractor: RandomImageProtocol,
         imagePreservationInteractor: ImagePreservationProtocol,
         viewState: ViewState
     ) {
-        self.interactor = interactor
+        self.randomImageInteractor = randomImageInteractor
         self.imagePreservationInteractor = imagePreservationInteractor
         self.viewState = viewState
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,7 @@ final class MainScreen: UIViewController {
         view.backgroundColor = .green
         setActivityIndicator()
         setImageView()
-        setUIButton()
+        setLoadImageButton()
     }
 }
 
