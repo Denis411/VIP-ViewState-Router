@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol RandomImageInteractorProtocol {
+protocol RandomImageProtocol {
     func loadRandomImage(category: ImageCategory)
 }
 
-final class RandomImageInteractor: RandomImageInteractorProtocol {
+final class RandomImageInteractor: RandomImageProtocol {
     private let apiManager: ApiManagerProtocol
     private let presenter: PresenterProtocol
     private var isLoadingInProgress = false
