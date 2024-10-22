@@ -9,6 +9,24 @@ import UIKit
 
 // MARK: - UIElements
 extension MainScreen {
+    func setActivityIndicator() {
+        activityIndicator.isHidden = true
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = CGRect(origin: .zero, size: .init(width: 100, height: 100))
+        activityIndicator.center = view.center
+        activityIndicator.color = .black
+    }
+    
+    func setLoadingState(isBeingLoaded: Bool) {
+        self.activityIndicator.isHidden = !isBeingLoaded
+        self.imageView.isHidden = isBeingLoaded
+        if isBeingLoaded {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+    
     func setImageView() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +53,7 @@ extension MainScreen {
     }
     
     @objc func loadImage() {
+        setLoadingState(isBeingLoaded: true)
         interactor.loadRandomImage(category: .city)
     }
 }

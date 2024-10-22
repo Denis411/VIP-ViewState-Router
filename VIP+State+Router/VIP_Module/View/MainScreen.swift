@@ -16,6 +16,7 @@ final class MainScreen: UIViewController {
     
     /*private*/ let button = UIButton()
     /*private*/ let imageView = UIImageView()
+    /*private*/ let activityIndicator = UIActivityIndicatorView()
     
     init(
         interactor: InteractorProtocol,
@@ -34,6 +35,7 @@ final class MainScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+        setActivityIndicator()
         setImageView()
         setUIButton()
     }
@@ -45,14 +47,18 @@ private extension MainScreen {
     private func bind() {
         viewState
             .$imageData
+            .dropFirst()
             .removeDuplicates()
-            .sink { [weak imageView] imageData in
+            .sink { [weak self] imageData in
+                defer {
+                    self?.setLoadingState(isBeingLoaded: false)
+                }
                 guard let imageData = imageData,
                       let updatedImage = UIImage(data: imageData) else {
                     return
                 }
                 
-                imageView?.image = updatedImage
+                self?.imageView.image = updatedImage
         }
             .store(in: &disposedBag)
     }
