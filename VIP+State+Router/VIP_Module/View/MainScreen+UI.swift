@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainScreen+UI.swift
 //  VIP+State+Router
 //
 //  Created by FIX PRICE on 10/22/24.
@@ -7,53 +7,9 @@
 
 import UIKit
 
-final class ViewState: ObservableObject {
-    @Published var imageData: Data?
-}
-
-protocol PresenterProtcol {
-    func updateImage(imageData: Data)
-}
-
-final class Presenter: PresenterProtcol {
-    private let viewState: ViewState
-    
-    init(viewState: ViewState) {
-        self.viewState = viewState
-    }
-    
-    func updateImage(imageData: Data) {
-        viewState.imageData = imageData
-    }
-}
-
-protocol InteractorProtocol {
-    func loadRandomImage(category: ImageCategory)
-}
-
-final class Interactor: InteractorProtocol {
-    func loadRandomImage(category: ImageCategory) {
-        
-    }
-}
-
-final class MainScreen: UIViewController {
-    private let interactor: InteractorProtocol = Interactor()
-    private let button = UIButton()
-    private let imageView = UIImageView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .green
-        setImageView()
-        setUIButton()
-    }
-}
-
-
 // MARK: - UIElements
 extension MainScreen {
-    private func setImageView() {
+    func setImageView() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
@@ -63,7 +19,7 @@ extension MainScreen {
         imageView.image = UIImage(systemName: "plus.circle")
     }
 
-    private func setUIButton() {
+    func setUIButton() {
         view.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -78,7 +34,7 @@ extension MainScreen {
         button.addTarget(nil, action: #selector(loadImage), for: .touchUpInside)
     }
     
-    @objc private func loadImage() {
+    @objc func loadImage() {
         interactor.loadRandomImage(category: .city)
     }
 }

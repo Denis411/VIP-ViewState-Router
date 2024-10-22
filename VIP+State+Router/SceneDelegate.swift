@@ -7,12 +7,6 @@
 
 import UIKit
 
-final class ScreenFactory {
-    func mainScreen() -> UIViewController {
-        MainScreen()
-    }
-}
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
