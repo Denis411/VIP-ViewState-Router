@@ -50,6 +50,10 @@ private extension MainScreen {
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] imageData in
+                guard Thread.isMainThread else {
+                    fatalError()
+                }
+                
                 defer {
                     self?.setLoadingState(isBeingLoaded: false)
                 }
