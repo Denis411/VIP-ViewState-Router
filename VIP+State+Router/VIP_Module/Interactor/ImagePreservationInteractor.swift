@@ -7,10 +7,23 @@
 
 import Foundation
 
-final class imagePresenterProtocol {
-    
+protocol ImagePreservationProtocol {
+    func persist(imageData: Data?)
 }
 
 final class ImagePreservationInteractor {
+    private let repository: InternalRepositoryProtocol
+    private let nc = NotificationCenter.default
     
+    init(repository: InternalRepositoryProtocol) {
+        self.repository = repository
+    }
+}
+
+extension ImagePreservationInteractor: ImagePreservationProtocol {
+    func persist(imageData: Data?) {
+        if let imageData {
+            repository.saveImageData(imageData)
+        }
+    }
 }

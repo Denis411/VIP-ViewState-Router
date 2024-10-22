@@ -10,6 +10,7 @@ import SwiftUI
 
 final class MainScreen: UIViewController {
     /*private*/ let interactor: RandomImageProtocol
+    /*private*/ let imagePreservationInteractor: ImagePreservationProtocol
     @ObservedObject private(set) var viewState: ViewState
     
     private var disposedBag = Set<AnyCancellable>()
@@ -20,9 +21,11 @@ final class MainScreen: UIViewController {
     
     init(
         interactor: RandomImageProtocol,
+        imagePreservationInteractor: ImagePreservationProtocol,
         viewState: ViewState
     ) {
         self.interactor = interactor
+        self.imagePreservationInteractor = imagePreservationInteractor
         self.viewState = viewState
         super.init(nibName: nil, bundle: nil)
         bind()
