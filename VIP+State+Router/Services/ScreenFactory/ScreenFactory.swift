@@ -22,6 +22,10 @@ struct DI {
 final class ScreenFactory {
     private let di = DI()
     
+    func rootViewController() -> UIViewController {
+        RootViewController()
+    }
+    
     func mainUIKitScreen() -> UIViewController {
         let apiManager = di.getApiService()
         let internalRepository = di.getInternalRepository()
