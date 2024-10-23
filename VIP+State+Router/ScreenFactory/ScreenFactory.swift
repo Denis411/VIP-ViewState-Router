@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 // DI is needed to avoid initializing services twice, reusability is more rational in the case
 struct DI {
@@ -21,13 +22,16 @@ struct DI {
 final class ScreenFactory {
     private let di = DI()
     
-    func mainScreen() -> UIViewController {
+    func mainUIKitScreen() -> UIViewController {
         let apiManager = di.getApiService()
         let internalRepository = di.getInternalRepository()
         
         let viewState = ViewState()
         let presenter = MainScreenPresenter(viewState: viewState)
-        let randomImageInteractor = RandomImageInteractor(presenter: presenter, apiManager: apiManager)
+        let randomImageInteractor = RandomImageInteractor(
+            presenter: presenter,
+            apiManager: apiManager
+        )
         let imagePresenrvationInteractor = ImagePreservationInteractor(
             repository: internalRepository,
             presenter: presenter
@@ -38,5 +42,28 @@ final class ScreenFactory {
             viewState: viewState
         )
         return screen
+    }
+    
+    func mainSwiftUIScreen() -> UIViewController {
+        let apiManager = di.getApiService()
+        let internalRepository = di.getInternalRepository()
+        
+        let viewState = ViewState()
+        let presenter = MainScreenPresenter(viewState: viewState)
+        let randomImageInteractor = RandomImageInteractor(
+            presenter: presenter,
+            apiManager: apiManager
+        )
+        let imagePresenrvationInteractor = ImagePreservationInteractor(
+            repository: internalRepository,
+            presenter: presenter
+        )
+        let view = MainScreenSwiftUIView(
+            viewState: viewState,
+            randomImageInteractor: randomImageInteractor,
+            imagePreservationInteractor: imagePresenrvationInteractor
+        )
+        
+        return UIHostingController(rootView: view)
     }
 }
