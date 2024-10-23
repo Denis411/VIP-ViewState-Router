@@ -32,8 +32,12 @@ final class RandomImageInteractor: RandomImageProtocol {
         Task(priority: .high) {
             defer {
                 isLoadingInProgress = false
+                Task {
+                    await presenter.setImageBeingLoadedStatus(isBeingLoaded: false)
+                }
             }
             isLoadingInProgress = true
+            await presenter.setImageBeingLoadedStatus(isBeingLoaded: true)
             let endPoint = ApiEndpoint.randomImage(category: category, width: 200, height: 200)
             let response: NetworkResponse? = try? await apiManager.getResponse(from: endPoint)
             let imageData = response?.data

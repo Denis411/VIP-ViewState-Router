@@ -44,11 +44,17 @@ final class MainScreenView: UIView {
     }
     
     func setLoadingState(isBeingLoaded: Bool) {
-        setLoadingStateInternally(isBeingLoaded: isBeingLoaded)
+        self.activityIndicator.isHidden = !isBeingLoaded
+        self.imageView.isHidden = isBeingLoaded
+        if isBeingLoaded {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
     
-    func setImageSavingStatus(isBeingLoaded: Bool) {
-        if isBeingLoaded {
+    func setImageSavingStatus(isBeingSaved: Bool) {
+        if isBeingSaved {
             saveImageButton.setTitle("...", for: .normal)
         } else {
             saveImageButton.setTitle("Save image", for: .normal)
@@ -63,16 +69,6 @@ private extension MainScreenView {
         self.addSubview(activityIndicator)
         activityIndicator.frame = CGRect(origin: .zero, size: .init(width: 100, height: 100))
         activityIndicator.color = .black
-    }
-    
-    func setLoadingStateInternally(isBeingLoaded: Bool) {
-        self.activityIndicator.isHidden = !isBeingLoaded
-        self.imageView.isHidden = isBeingLoaded
-        if isBeingLoaded {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
-        }
     }
     
     func setImageView() {
@@ -116,7 +112,6 @@ private extension MainScreenView {
     }
     
     @objc func loadImage() {
-        setLoadingStateInternally(isBeingLoaded: true)
         loadRandomImageAction(.city)
     }
     

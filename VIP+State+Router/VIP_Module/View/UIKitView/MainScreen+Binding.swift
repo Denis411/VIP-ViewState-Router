@@ -18,10 +18,6 @@ extension MainScreen {
                 guard Thread.isMainThread else {
                     fatalError()
                 }
-                
-                defer {
-                    internalView?.setLoadingState(isBeingLoaded: false)
-                }
                 guard let imageData = imageData,
                       let updatedImage = UIImage(data: imageData) else {
                     return
@@ -35,9 +31,19 @@ extension MainScreen {
         viewState
             .$isImageBeingSaved
             .dropFirst()
+            .sink { [weak internalView] isBeingSaved in
+                internalView?.setImageSavingStatus(isBeingSaved: isBeingSaved)
+            }
+            .store(in: &disposedBag)
+        
+        // loading status
+        viewState
+            .$isImageBeingLoaded
+            .dropFirst()
             .sink { [weak internalView] isBeingLoaded in
-                internalView?.setImageSavingStatus(isBeingLoaded: isBeingLoaded)
+                internalView?.setLoadingState(isBeingLoaded: isBeingLoaded)
             }
             .store(in: &disposedBag)
     }
+    
 }

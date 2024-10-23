@@ -28,11 +28,11 @@ final class ImagePreservationInteractor {
 extension ImagePreservationInteractor: ImagePreservationProtocol {
     func persist(imageData: Data?) {
         Task(priority: .userInitiated) {
-            await presenter.setImageSavingStatus(isBeingLoaded: true)
+            await presenter.setImageSavingStatus(isBeingSaved: true)
             if let imageData {
                 repository.saveImageData(imageData)
             }
-            await presenter.setImageSavingStatus(isBeingLoaded: false)
+            await presenter.setImageSavingStatus(isBeingSaved: false)
         }
     }
     
