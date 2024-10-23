@@ -28,7 +28,9 @@ final class Router {
     func setNavVC(nvc: UINavigationController) {
         self.rootNavigationVC = nvc
     }
-    
+}
+
+extension Router {
     func openRandomImageScreenInSwiftUI() {
         let screen = screenFactor.mainSwiftUIScreen()
         let hostingScreen = UIHostingController(rootView: screen)
