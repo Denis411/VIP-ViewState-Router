@@ -48,7 +48,7 @@ final class ScreenFactory {
         return screen
     }
     
-    func mainSwiftUIScreen() -> UIViewController {
+    func mainSwiftUIScreen() -> MainScreenSwiftUIView {
         let apiManager = di.getApiService()
         let internalRepository = di.getInternalRepository()
         
@@ -68,6 +68,6 @@ final class ScreenFactory {
             imagePreservationInteractor: imagePresenrvationInteractor
         )
         
-        return UIHostingController(rootView: view)
+        return view
     }
 }
