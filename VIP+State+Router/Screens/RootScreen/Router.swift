@@ -11,29 +11,32 @@ import UIKit
 final class Router {
     private let window: UIWindow
     private let scene: UIWindowScene
-    private let rootNavigationVC: UINavigationController
     private let screenFactor: ScreenFactory
+    
+    private var rootNavigationVC: UINavigationController?
     
     init(
         window: UIWindow,
         scene: UIWindowScene,
-        rootNavigationVC: UINavigationController,
         screenFactor: ScreenFactory
     ) {
         self.window = window
         self.scene = scene
-        self.rootNavigationVC = rootNavigationVC
         self.screenFactor = screenFactor
+    }
+    
+    func setNavVC(nvc: UINavigationController) {
+        self.rootNavigationVC = nvc
     }
     
     func openRandomImageScreenInSwiftUI() {
         let screen = screenFactor.mainSwiftUIScreen()
         let hostingScreen = UIHostingController(rootView: screen)
-        rootNavigationVC.pushViewController(hostingScreen, animated: true)
+        rootNavigationVC?.pushViewController(hostingScreen, animated: true)
     }
     
     func openRandomImageScreenInUIKit() {
         let screen = screenFactor.mainUIKitScreen()
-        rootNavigationVC.pushViewController(screen, animated: true)
+        rootNavigationVC?.pushViewController(screen, animated: true)
     }
 }

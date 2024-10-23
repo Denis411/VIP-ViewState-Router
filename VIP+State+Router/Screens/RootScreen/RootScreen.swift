@@ -11,6 +11,16 @@ import SwiftUI
 final class RootViewController: UIViewController {
     private let swiftUIViewButton = UIButton()
     private let UIKitViewButton = UIButton()
+    private let router: Router
+    
+    init(router: Router) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillLayoutSubviews() {
         crateSwiftUIViewButton()
@@ -30,6 +40,12 @@ extension RootViewController {
         swiftUIViewButton.backgroundColor = .blue
         swiftUIViewButton.setTitle("SwiftUI", for: .normal)
         swiftUIViewButton.layer.cornerRadius = 10
+        
+        swiftUIViewButton.addTarget(self, action: #selector(openSwiftUIView), for: .touchUpInside)
+    }
+    
+    @objc private func openSwiftUIView() {
+        router.openRandomImageScreenInSwiftUI()
     }
     
     private func crateUIKitViewButton() {
@@ -43,5 +59,11 @@ extension RootViewController {
         UIKitViewButton.backgroundColor = .blue
         UIKitViewButton.setTitle("UIKit", for: .normal)
         UIKitViewButton.layer.cornerRadius = 10
+        
+        UIKitViewButton.addTarget(self, action: #selector(openUIKitView), for: .touchUpInside)
+    }
+    
+    @objc private func openUIKitView() {
+        router.openRandomImageScreenInUIKit()
     }
 }

@@ -22,8 +22,21 @@ struct DI {
 final class ScreenFactory {
     private let di = DI()
     
-    func rootViewController() -> UIViewController {
-        RootViewController()
+    func rootViewController(
+        window: UIWindow,
+        scene: UIWindowScene
+    ) -> UIViewController {
+        let factory = ScreenFactory()
+        let router = Router(
+            window: window,
+            scene: scene,
+            screenFactor: factory
+        )
+        
+        let root = RootViewController(router: router)
+        let nvc = UINavigationController(rootViewController: root)
+        router.setNavVC(nvc: nvc)
+        return nvc
     }
     
     func mainUIKitScreen() -> UIViewController {
