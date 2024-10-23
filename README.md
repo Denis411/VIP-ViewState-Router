@@ -1,4 +1,5 @@
 This streamlined architectural pattern simplifies integrating SwiftUI and UIKit into a single project
+
 While communication between system components relies on protocols, I omitted this detail from the diagram for simplicity
 
 <img width="638" alt="image" src="https://github.com/user-attachments/assets/9c453cf4-c672-41fb-98ab-7963dc52fc9f">
