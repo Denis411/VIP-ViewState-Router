@@ -1,6 +1,6 @@
 This streamlined architectural pattern simplifies integrating SwiftUI and UIKit into a single project
 
-<img width="765" alt="image" src="https://github.com/user-attachments/assets/b599fa55-3a93-4792-ad97-1f82575ee0d0">
+<img width="638" alt="image" src="https://github.com/user-attachments/assets/9c453cf4-c672-41fb-98ab-7963dc52fc9f">
 
 The data flow allows adding a Finite State Machine if necessary
 
