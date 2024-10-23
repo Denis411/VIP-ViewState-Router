@@ -20,6 +20,7 @@ struct MainScreenSwiftUIView: View {
         self.viewState = viewState
         self.randomImageInteractor = randomImageInteractor
         self.imagePreservationInteractor = imagePreservationInteractor
+        imagePreservationInteractor.loadImage()
     }
     
     var body: some View {
