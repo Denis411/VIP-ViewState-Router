@@ -13,7 +13,6 @@ extension MainScreen {
         // image data
         viewState
             .$imageData
-            .removeDuplicates()
             .sink { [weak internalView] imageData in
                 guard Thread.isMainThread else {
                     fatalError()

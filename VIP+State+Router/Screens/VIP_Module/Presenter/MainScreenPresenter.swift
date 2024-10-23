@@ -21,14 +21,20 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
     }
     
     @MainActor func updateImage(imageData: Data?) {
-        viewState.imageData = imageData
+        if imageData != viewState.imageData {
+            viewState.imageData = imageData
+        }
     }
     
     @MainActor func setImageSavingStatus(isBeingSaved: Bool) {
-        viewState.isImageBeingSaved = isBeingSaved
+        if isBeingSaved != viewState.isImageBeingSaved {
+            viewState.isImageBeingSaved = isBeingSaved
+        }
     }
     
     @MainActor func setImageBeingLoadedStatus(isBeingLoaded: Bool) {
-        viewState.isImageBeingLoaded = isBeingLoaded
+        if isBeingLoaded != viewState.isImageBeingLoaded {
+            viewState.isImageBeingLoaded = isBeingLoaded
+        }
     }
 }
