@@ -1,3 +1,5 @@
+<img width="296" alt="image" src="https://github.com/user-attachments/assets/8aaca858-6ced-4f4b-865d-0f0e22b35b12">
+
 This streamlined architectural pattern simplifies integrating SwiftUI and UIKit into a single project
 
 While communication between system components relies on protocols, I omitted this detail from the diagram for simplicity
